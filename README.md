@@ -65,7 +65,7 @@ Howto examples:
 After homebridge has added the new accessory Node-RED get an acknowledge message:
 
 ```sh
-{"topic":"responce", "payload": {"ack": ack, "comment": "The new accessory 'flex_lamp' is now added."}}
+{"topic":"responce", "payload": {"ack": true, "comment": "The new accessory 'flex_lamp' is now added."}}
 
 ```
 
@@ -81,13 +81,13 @@ After homebridge has added the new accessory Node-RED get an acknowledge message
 {topic: "set", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
-**set: Node-RED websocket input**
+**get: Node-RED websocket input**
 
 ```sh
 {topic: "get", payload: {"name": "flex_lamp", "characteristic": "On"}}
 ```
 
-When Node-RED receives a get topic it should send a callback with the value.
+When Node-RED receives a `get` topic it should send a callback with the value.
 
 **callback: Node-RED websocket output**
 
