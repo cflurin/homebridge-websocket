@@ -1,5 +1,5 @@
 # homebridge-websocket
-Homebridge-websocket is a Plugin for Homebridge. The Websocket-API supports the main homebridge functions. This allows you to add and control accessories from a "Bridge" or "Hub" with a Websocket API. [Node-RED] (http://nodered.org/) is the perfect platform to use with homebridge-websocket.
+Homebridge-websocket is a Plugin for Homebridge. The Websocket-API supports the main homebridge functions. This allows you to add and control accessories from a "Bridge" or "Hub" with a Websocket API. [Node-RED](http://nodered.org/) is the perfect platform to use with homebridge-websocket.
 
 Note-RED is a visual tool for wiring together hardware devices, APIs and online services.
 
@@ -59,14 +59,12 @@ Howto examples:
 
 ```sh
 {topic: "add", payload: {"name": "aeotec_bulb", "service": "Lightbulb", "Brightness": "default"}}
-
 ```
 
 After homebridge has added the new accessory Node-RED get an acknowledge message:
 
 ```sh
 {"topic":"responce", "payload": {"ack": true, "comment": "The new accessory 'flex_lamp' is now added."}}
-
 ```
 
 **setValue: Node-RED websocket output**
