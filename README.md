@@ -1,0 +1,2 @@
+# homebridge-websocket
+Homebridge Plugin
