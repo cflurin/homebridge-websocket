@@ -64,7 +64,7 @@ Howto examples:
 After homebridge has added the new accessory Node-RED get an acknowledge message:
 
 ```sh
-{"topic":"responce", "payload": {"ack": true, "comment": "The new accessory 'flex_lamp' is now added."}}
+{"topic":"response", "payload": {"ack": true, "comment": "The new accessory 'flex_lamp' is now added."}}
 ```
 
 **setValue: Node-RED websocket output**

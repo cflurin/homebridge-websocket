@@ -74,7 +74,7 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
     var uuid = UUIDGen.generate(name);
     
     var newAccessory = new Accessory(name, uuid);
-    //this.log.debug("WebsocketPlatform.addAccessory UUID = %s", newAccessory.UUID);
+    //this.log.debug("addAccessory UUID = %s", newAccessory.UUID);
     
     var i_accessory = new WebsocketAccessory(this.buildParams(accessoryDef));
     i_accessory.addService(newAccessory);
@@ -83,17 +83,17 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
     this.accessories[name] = i_accessory;
     this.hap_accessories.push(newAccessory);
     this.api.registerPlatformAccessories(plugin_name, platform_name, [newAccessory]);
-    this.log.debug("WebsocketPlatform.addAccessory %s", name);
+    this.log.debug("addAccessory %s", name);
     this.Websocket.sendAck(name, true);
   } else {
-    this.log.error("WebsocketPlatform.addAccessory name '%s' already used.", name);
+    this.log.error("addAccessory name '%s' already used.", name);
     this.Websocket.sendAck(name, false);
   }
 }
 
 WebsocketPlatform.prototype.configureAccessory = function(accessory) {
 
-  //this.log.debug("WebsocketPlatform.configureAccessory %s", JSON.stringify(accessory.services, null, 2));
+  //this.log.debug("configureAccessory %s", JSON.stringify(accessory.services, null, 2));
    
   cachedAccessories++;
   var name = accessory.displayName;
@@ -103,7 +103,7 @@ WebsocketPlatform.prototype.configureAccessory = function(accessory) {
   accessoryDef.name = name;
   
   if (this.accessories[name]) {
-    this.log.error("WebsocketPlatform.configureAccessory %s UUID %s already used.", name, uuid);
+    this.log.error("configureAccessory %s UUID %s already used.", name, uuid);
     process.exit(1);
   }
   
@@ -129,7 +129,7 @@ WebsocketPlatform.prototype.buildParams = function (accessoryDef) {
     "Characteristic": Characteristic,
     "Websocket": this.Websocket
   }
-  //this.log.debug("WebsocketPlatform.configureAccessories %s", JSON.stringify(params.accessory_config));
+  //this.log.debug("configureAccessories %s", JSON.stringify(params.accessory_config));
   return params;
 }
 
