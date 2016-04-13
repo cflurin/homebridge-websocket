@@ -27,7 +27,7 @@ function WebsocketPlatform(log, config, api) {
 
   this.log = log;
   this.accessories = {};
-  this.hap_accessories = [];
+  this.hap_accessories = {};
      
   var plugin_version = Utils.readPluginVersion();
   this.log("%s v%s", plugin_name, plugin_version);
@@ -38,7 +38,8 @@ function WebsocketPlatform(log, config, api) {
     "port": config.port,
     "accessories": this.accessories,
     "Characteristic": Characteristic,
-    "addAccessory": this.addAccessory.bind(this)
+    "addAccessory": this.addAccessory.bind(this),
+    "removeAccessory": this.removeAccessory.bind(this)
   }
   this.Websocket = new Websocket(params);
 
@@ -69,6 +70,7 @@ function WebsocketPlatform(log, config, api) {
 WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
 
   var name = accessoryDef.name;
+  var message;
   
   if (!this.accessories[name]) {
     var uuid = UUIDGen.generate(name);
@@ -81,14 +83,17 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
     i_accessory.configureAccessory(newAccessory);
     
     this.accessories[name] = i_accessory;
-    this.hap_accessories.push(newAccessory);
+    this.hap_accessories[name] = newAccessory;
     this.api.registerPlatformAccessories(plugin_name, platform_name, [newAccessory]);
-    this.log.debug("addAccessory %s", name);
-    this.Websocket.sendAck(name, true);
+    
+    message =  "accessory '" + name + "' is added.";
+    this.Websocket.sendAck(true, message);
   } else {
-    this.log.error("addAccessory name '%s' already used.", name);
-    this.Websocket.sendAck(name, false);
+
+    message = "name '" + name + "' is already used.";
+    this.Websocket.sendAck(false, message);
   }
+  this.log("addAccessory %s", message);
 }
 
 WebsocketPlatform.prototype.configureAccessory = function(accessory) {
@@ -113,11 +118,27 @@ WebsocketPlatform.prototype.configureAccessory = function(accessory) {
   i_accessory.configureAccessory(accessory);
   
   this.accessories[name] = i_accessory;
-  this.hap_accessories.push(accessory);
+  this.hap_accessories[name] = accessory;
 }
 
 WebsocketPlatform.prototype.removeAccessory = function(name) {
-  // todo
+
+  var message;
+  
+  if (typeof(this.accessories[name]) !== "undefined") {
+    this.log.debug("removeAccessory '%s'", name);
+    
+    this.api.unregisterPlatformAccessories(plugin_name, platform_name, [this.hap_accessories[name]]);
+    delete this.accessories[name];
+    delete this.hap_accessories[name];
+    
+    message = "accessory '" + name + "' is removed.";
+    this.Websocket.sendAck(true, message);
+  } else {
+    message = "accessory '" + name + "' not found.";
+    this.Websocket.sendAck(false, message);
+  }
+  this.log("removeAccessory %s", message);
 }
 
 WebsocketPlatform.prototype.buildParams = function (accessoryDef) {

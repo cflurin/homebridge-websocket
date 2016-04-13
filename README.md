@@ -64,7 +64,19 @@ Howto examples:
 After homebridge has added the new accessory Node-RED get an acknowledge message:
 
 ```sh
-{"topic":"response", "payload": {"ack": true, "comment": "The new accessory 'flex_lamp' is now added."}}
+{"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is added."}}
+```
+
+**removeAccessory: Node-RED websocket output**
+
+```sh
+{topic: "remove", payload: {"name": "flex_lamp"}}
+```
+
+After homebridge has removed the new accessory Node-RED get an acknowledge message:
+
+```sh
+{"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is removed."}}
 ```
 
 **setValue: Node-RED websocket output**
