@@ -26,6 +26,7 @@ module.exports = function(homebridge) {
 function WebsocketPlatform(log, config, api) {
 
   this.log = log;
+  this.port = config.port || { "port": 4050 };
   this.accessories = {};
   this.hap_accessories = {};
      
@@ -35,7 +36,7 @@ function WebsocketPlatform(log, config, api) {
   var params = {
     "log": this.log,
     "plugin_name": plugin_name,
-    "port": config.port,
+    "port": this.port,
     "accessories": this.accessories,
     "Characteristic": Characteristic,
     "addAccessory": this.addAccessory.bind(this),
