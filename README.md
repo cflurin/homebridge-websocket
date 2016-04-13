@@ -61,7 +61,7 @@ Howto examples:
 {topic: "add", payload: {"name": "aeotec_bulb", "service": "Lightbulb", "Brightness": "default"}}
 ```
 
-After homebridge has added the new accessory Node-RED get an acknowledge message:
+After the new accessory is added homebridge send an acknowledge message:
 
 ```sh
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is added."}}
@@ -73,7 +73,7 @@ After homebridge has added the new accessory Node-RED get an acknowledge message
 {topic: "remove", payload: {"name": "flex_lamp"}}
 ```
 
-After homebridge has removed the new accessory Node-RED get an acknowledge message:
+After the accessory is removed homebrdge send an acknowledge message:
 
 ```sh
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is removed."}}
