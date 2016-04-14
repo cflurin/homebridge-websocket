@@ -50,7 +50,7 @@ ws://127.0.0.1:4050
 ```
 
 Replace `127.0.0.1` with your `ip-address`. The port `4050` can be changed in config.json.
-The websocket client (e.g. Node-RED) has to connect to homebridge-websocket.
+The websocket-client (e.g. Node-RED) has to connect to homebridge-websocket.
 
 ### Websocket API
 
@@ -72,11 +72,7 @@ Howto examples:
 {topic: "add", payload: {"name": "flex_lamp", "service": "Switch"}}
 ```
 
-```sh
-{topic: "add", payload: {"name": "aeotec_bulb", "service": "Lightbulb", "Brightness": "default"}}
-```
-
-After the new accessory is added homebridge sends an acknowledge message:
+After the new accessory is added homebridge-websocket sends an acknowledge message:
 
 ```sh
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is added."}}
@@ -112,12 +108,45 @@ After the accessory is removed homebrdge sends an acknowledge message:
 {topic: "get", payload: {"name": "flex_lamp", "characteristic": "On"}}
 ```
 
-When hoembridge-websocket sends `get` topic it expects a callback with the value within 2 seconds.
+When hoembridge-websocket sends a `get` topic it expects a callback with the value within 2 seconds.
 
 **callback (input)**
 
 ```sh
 {topic: "callback", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
+```
+
+The required characteristics are added with the default properties. If you need to change the default, define the characteristic-name with the properties. e.g.:
+
+```sh
+{topic: "add",
+ payload:
+  {
+    "name": "temp_living",
+    "service": "TemperatureSensor",
+    "CurrentTemperature": {"minValue": -20, "maxValue": 60,"minStep": 1}
+  }
+}
+```
+
+To add an optional charachteristic define the characteristic-name with "default" or with the properties. e.g.:
+
+```sh
+{topic: "add", payload: {"name": "living_lamp", "service": "Lightbulb", "Brightness": "default"}}
+```
+
+```sh
+{topic: "add",
+  payload:
+    {
+      "name": "bathroom_blind",
+      "service": "WindowCovering",
+      "CurrentPosition": {"minStep": 5},
+      "TargetPosition": {"minStep": 5},
+      "CurrentHorizontalTiltAngle": {"minValue": 0, "minStep": 5},
+      "TargetHorizontalTiltAngle": {"minValue": 0, "minStep": 5}
+    }
+}
 ```
 
 [HomeKitTypes.js](https://github.com/KhaosT/HAP-NodeJS/blob/master/lib/gen/HomeKitTypes.js) describes all the predifined Services and Characteristcs.
