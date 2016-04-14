@@ -26,9 +26,15 @@ module.exports = function(homebridge) {
 function WebsocketPlatform(log, config, api) {
 
   this.log = log;
-  this.port = config.port || { "port": 4050 };
   this.accessories = {};
   this.hap_accessories = {};
+  
+  if (typeof(config) !== "undefined") {
+    this.port = config.port || {"port": 4050};
+  } else {
+    this.port = 4050;
+    this.log.error("platform not found in config.json.");
+  }
      
   var plugin_version = Utils.readPluginVersion();
   this.log("%s v%s", plugin_name, plugin_version);
@@ -44,13 +50,11 @@ function WebsocketPlatform(log, config, api) {
   }
   this.Websocket = new Websocket(params);
 
-/*
   Utils.read_npmVersion(plugin_name, function(npm_version) {
     if (npm_version > plugin_version) {
       this.log("A new version %s is avaiable", npm_version);
     }
   }.bind(this));
-*/
 
   if (api) {
     this.api = api;

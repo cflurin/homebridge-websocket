@@ -41,6 +41,17 @@ Add the websocket-platform in config.json in your home directory inside `.homebr
 }
 ```
 
+### Websocket Uri
+
+The homebridge-websocket is listen on:
+
+```sh
+ws://127.0.0.1:4050
+```
+
+Replace `127.0.0.1` with your `ip-address`. The port `4050` can be changed in config.json.
+The websocket client (e.g. Node-RED) has to connect to homebridge-websocket.
+
 ### Websocket API
 
 The message is a JSON object with this structure:
@@ -49,9 +60,13 @@ The message is a JSON object with this structure:
 {topic: <function>, payload: {<data>}}
 ```
 
+`input`: the websocket-client sends a message to homebridge-websocket.
+
+`output`: homebridge-websocket sends a message to the websocket-client.
+
 Howto examples:
 
-**addAccessory: Node-RED websocket output**
+**addAccessory (input)**
 
 ```sh
 {topic: "add", payload: {"name": "flex_lamp", "service": "Switch"}}
@@ -61,45 +76,45 @@ Howto examples:
 {topic: "add", payload: {"name": "aeotec_bulb", "service": "Lightbulb", "Brightness": "default"}}
 ```
 
-After the new accessory is added homebridge send an acknowledge message:
+After the new accessory is added homebridge sends an acknowledge message:
 
 ```sh
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is added."}}
 ```
 
-**removeAccessory: Node-RED websocket output**
+**removeAccessory (input)**
 
 ```sh
 {topic: "remove", payload: {"name": "flex_lamp"}}
 ```
 
-After the accessory is removed homebrdge send an acknowledge message:
+After the accessory is removed homebrdge sends an acknowledge message:
 
 ```sh
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is removed."}}
 ```
 
-**setValue: Node-RED websocket output**
+**setValue (input)**
 
 ```sh
 {topic: "setValue", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
-**set: Node-RED websocket input**
+**set (output)**
 
 ```sh
 {topic: "set", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
-**get: Node-RED websocket input**
+**get (output)**
 
 ```sh
 {topic: "get", payload: {"name": "flex_lamp", "characteristic": "On"}}
 ```
 
-When Node-RED receives a `get` topic it should send a callback with the value.
+When hoembridge-websocket sends `get` topic it expects a callback with the value within 2 seconds.
 
-**callback: Node-RED websocket output**
+**callback (input)**
 
 ```sh
 {topic: "callback", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
