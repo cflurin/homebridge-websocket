@@ -60,13 +60,14 @@ The message is a JSON object with this structure:
 {topic: <function>, payload: {<data>}}
 ```
 
-`input`: the websocket-client sends a message to homebridge-websocket.
+`output`: the websocket-client sends a message to homebridge-websocket.
 
-`output`: homebridge-websocket sends a message to the websocket-client.
+`input`: homebridge-websocket sends a message to the websocket-client.
+
 
 Howto examples:
 
-**addAccessory (input)**
+**addAccessory (output)**
 
 ```sh
 {topic: "add", payload: {"name": "flex_lamp", "service": "Switch"}}
@@ -78,7 +79,7 @@ After the new accessory is added homebridge-websocket sends an acknowledge messa
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is added."}}
 ```
 
-**removeAccessory (input)**
+**removeAccessory (output)**
 
 ```sh
 {topic: "remove", payload: {"name": "flex_lamp"}}
@@ -90,19 +91,19 @@ After the accessory is removed homebrdge sends an acknowledge message:
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is removed."}}
 ```
 
-**setValue (input)**
+**setValue (output)**
 
 ```sh
 {topic: "setValue", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
-**set (output)**
+**set (input)**
 
 ```sh
 {topic: "set", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
-**get (output)**
+**get (input)**
 
 ```sh
 {topic: "get", payload: {"name": "flex_lamp", "characteristic": "On"}}
@@ -110,7 +111,7 @@ After the accessory is removed homebrdge sends an acknowledge message:
 
 When hoembridge-websocket sends a `get` topic it expects a callback with the value within 2 seconds.
 
-**callback (input)**
+**callback (output)**
 
 ```sh
 {topic: "callback", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
