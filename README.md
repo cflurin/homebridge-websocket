@@ -5,8 +5,8 @@ Note-RED is a visual tool for wiring together hardware devices, APIs and online 
 
 ### Installation
 
-If you're new to Homebridge, please first read the Homebridge [documentation](https://www.npmjs.com/package/homebridge).
-You should have a look at the [Wiki](https://github.com/cflurin/homebridge-punt/wiki/Running-Homebridge-on-a-Raspberry-Pi) if you're running on a Raspberry.
+If you are new to Homebridge, please first read the Homebridge [documentation](https://www.npmjs.com/package/homebridge).
+If you are running on a Raspberry, you will find a tutorial in the [homebridge-punt Wiki](https://github.com/cflurin/homebridge-punt/wiki/Running-Homebridge-on-a-Raspberry-Pi).
 
 Install homebridge:
 ```sh
@@ -85,7 +85,7 @@ After the new accessory is added homebridge-websocket sends an acknowledge messa
 {topic: "remove", payload: {"name": "flex_lamp"}}
 ```
 
-After the accessory is removed homebrdge sends an acknowledge message:
+After the accessory is removed homebridge sends an acknowledge message:
 
 ```sh
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is removed."}}
@@ -109,7 +109,7 @@ After the accessory is removed homebrdge sends an acknowledge message:
 {topic: "get", payload: {"name": "flex_lamp", "characteristic": "On"}}
 ```
 
-When hoembridge-websocket sends a `get` topic it expects a callback with the value within 2 seconds.
+When homebridge-websocket sends a `get` topic it expects a callback with the value within 2 seconds.
 
 **callback (output)**
 
