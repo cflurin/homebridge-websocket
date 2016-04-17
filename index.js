@@ -46,7 +46,8 @@ function WebsocketPlatform(log, config, api) {
     "accessories": this.accessories,
     "Characteristic": Characteristic,
     "addAccessory": this.addAccessory.bind(this),
-    "removeAccessory": this.removeAccessory.bind(this)
+    "removeAccessory": this.removeAccessory.bind(this),
+    "getAccessories": this.getAccessories.bind(this)
   }
   this.Websocket = new Websocket(params);
 
@@ -81,6 +82,8 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
     var uuid = UUIDGen.generate(name);
     
     var newAccessory = new Accessory(name, uuid);
+    newAccessory.context.service_name = accessoryDef.service;
+    
     //this.log.debug("addAccessory UUID = %s", newAccessory.UUID);
     
     var i_accessory = new WebsocketAccessory(this.buildParams(accessoryDef));
@@ -104,13 +107,14 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
 WebsocketPlatform.prototype.configureAccessory = function(accessory) {
 
   //this.log.debug("configureAccessory %s", JSON.stringify(accessory.services, null, 2));
-   
+  
   cachedAccessories++;
   var name = accessory.displayName;
   var uuid = accessory.UUID;
     
   var accessoryDef = {};
   accessoryDef.name = name;
+  accessoryDef.service = accessory.context.service_name;
   
   if (this.accessories[name]) {
     this.log.error("configureAccessory %s UUID %s already used.", name, uuid);
@@ -144,6 +148,23 @@ WebsocketPlatform.prototype.removeAccessory = function(name) {
   }
   this.log("removeAccessory %s", message);
   this.Websocket.sendAck(ack, message);
+}
+
+WebsocketPlatform.prototype.getAccessories = function(name) {
+
+  var accessories = {};
+  var def = {};
+  var service, characteristics;
+  
+  for (var k in this.accessories) {
+    //this.log("getAccessories %s", JSON.stringify(this.accessories[k], null, 2));
+    service = this.accessories[k].service_name;
+    characteristics =  this.accessories[k].i_value;
+    def = {"service": service, "characteristics": characteristics};
+    accessories[k] = def;
+  }
+  //this.log("getAccessories %s", JSON.stringify(accessories, null, 2));
+  this.Websocket.sendAccessories(accessories);
 }
 
 WebsocketPlatform.prototype.buildParams = function (accessoryDef) {

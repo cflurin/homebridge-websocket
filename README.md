@@ -91,6 +91,23 @@ After the accessory is removed homebridge sends an acknowledge message:
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is removed."}}
 ```
 
+**getAccessories (output)**
+
+```sh
+{topic: "getAccessories", payload: {}}
+```
+
+homebridge sends an accessories list:
+
+```sh
+{"topic":"accessories", "payload": {
+  "node_switch":{"service":"Switch","characteristics":{"On":"blank"}},
+  "office_lamp":{"service":"Lightbulb","characteristics":{"On":"blank","Brightness":"blank"}},
+  "at_home":{"service":"OccupancySensor","characteristics":{"OccupancyDetected":"blank"}}
+  }
+}
+```
+
 **setValue (output)**
 
 ```sh
