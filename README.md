@@ -101,9 +101,9 @@ homebridge sends an accessories list:
 
 ```sh
 {"topic":"accessories", "payload": {
-  "node_switch":{"service":"Switch","characteristics":{"On":"blank"}},
-  "office_lamp":{"service":"Lightbulb","characteristics":{"On":"blank","Brightness":"blank"}},
-  "at_home":{"service":"OccupancySensor","characteristics":{"OccupancyDetected":"blank"}}
+  "node_switch":{"service":"Switch","characteristics":{"On":true}},
+  "office_lamp":{"service":"Lightbulb","characteristics":{"On":"blank","Brightness":65}},
+  "at_home":{"service":"OccupancySensor","characteristics":{"OccupancyDetected":1}}
   }
 }
 ```
