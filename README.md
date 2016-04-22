@@ -60,10 +60,22 @@ The message is a JSON object with this structure:
 {topic: <function>, payload: {<data>}}
 ```
 
-`output`: the websocket-client sends a message to homebridge-websocket.
+`input`: the websocket-client receives a message from the homebridge-websocket.
 
-`input`: homebridge-websocket sends a message to the websocket-client.
+`output`: the websocket-client sends a message to the homebridge-websocket.
 
+**Functions**
+
+function | input / output
+-------- | ---------
+addAccessory | output
+removeAccessory | output
+getAccessory | output
+setValue | output
+set | input
+get | input
+response | input
+callback | input
 
 Howto examples:
 

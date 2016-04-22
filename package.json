@@ -11,7 +11,8 @@
     "homebridge-plugin",
     "homekit",
     "siri",
-    "websocket"
+    "websocket",
+    "node-RED"
   ],
   "repository": {
     "type": "git",
