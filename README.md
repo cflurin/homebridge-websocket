@@ -70,7 +70,7 @@ function | input / output
 -------- | ---------
 addAccessory | output
 removeAccessory | output
-getAccessory | output
+getAccessories | output
 setValue | output
 set | input
 get | input
