@@ -194,7 +194,7 @@ To add an optional charachteristic define the characteristic-name with "default"
 
 ### Websocket client (node-RED)
 
-Here's an example flow. It shows how to add an accessory (offce_lamp) and how to set the value on/off.
+Here's an example flow. It shows how to add an accessory (office_lamp) and how to set the value on/off.
 The messages sent from the homebridge-websocket are displayed on the debug tap.
 
 ![node-RED](https://cloud.githubusercontent.com/assets/5056710/14761441/fee01054-0961-11e6-81e0-73f59603089c.jpeg)
