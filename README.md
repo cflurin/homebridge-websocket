@@ -75,7 +75,7 @@ get | input
 response | input
 callback | input
 
-Howto examples:
+**Howto examples:**
 
 **add (output)**
 
@@ -110,7 +110,7 @@ After the accessory is removed homebridge sends an acknowledge message:
 homebridge sends an accessories list:
 
 ```sh
-{"topic":"accessories", "payload": {
+{"topic": "accessories", "payload": {
   "node_switch":{"service":"Switch","characteristics":{"On":true}},
   "office_lamp":{"service":"Lightbulb","characteristics":{"On":"blank","Brightness":65}},
   "at_home":{"service":"OccupancySensor","characteristics":{"OccupancyDetected":1}}
@@ -122,10 +122,13 @@ homebridge sends an accessories list:
 {topic: "get", payload: {"name": "temp_outdoor"}}
 ```
 
-homebridge sends the accessory definition:
+homebridge sends the accessory JSON object:
 
 ```sh
-{ "temp_outdoor": { "service": "TemperatureSensor", "characteristics": { "CurrentTemperature": "blank" } } }
+{"topic": "accessories", payload: {
+  "temp_outdoor": {"service": "TemperatureSensor", "characteristics": {"CurrentTemperature": "13.4"}}
+  }
+}
 ```
 
 **setValue (output)**
@@ -189,4 +192,9 @@ To add an optional charachteristic define the characteristic-name with "default"
 
 [HomeKitTypes.js](https://github.com/KhaosT/HAP-NodeJS/blob/master/lib/gen/HomeKitTypes.js) describes all the predifined Services and Characteristcs.
 
+### Websocket client (node-RED)
 
+Here's an example flow. It shows how to add an accessory (offce_lamp) and how to set the value on/off.
+The messages sent from the homebridge-websocket are displayed on the debug tap.
+
+![node-RED](https://cloud.githubusercontent.com/assets/5056710/14761441/fee01054-0961-11e6-81e0-73f59603089c.jpeg)
