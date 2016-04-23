@@ -1,5 +1,5 @@
 # homebridge-websocket
-Homebridge-websocket is a Plugin for Homebridge. The Websocket-API supports the main homebridge functions. This allows you to add and control accessories from a "Bridge" or "Hub" with a Websocket API. [Node-RED](http://nodered.org/) is the perfect platform to use with homebridge-websocket.
+Homebridge-websocket is a Plugin for Homebridge. The Websocket-API supports the main homebridge functions. This allows you to add and control accessories from a "Bridge" or "Gateway" with a Websocket API. [Node-RED](http://nodered.org/) is the perfect platform to use with homebridge-websocket.
 
 Note-RED is a visual tool for wiring together hardware devices, APIs and online services.
 
@@ -64,13 +64,11 @@ The message is a JSON object with this structure:
 
 `output`: the websocket-client sends a message to the homebridge-websocket.
 
-**Functions**
-
 function | input / output
 -------- | ---------
-addAccessory | output
-removeAccessory | output
-getAccessories | output
+add | output
+remove | output
+get | output
 setValue | output
 set | input
 get | input
@@ -79,7 +77,7 @@ callback | input
 
 Howto examples:
 
-**addAccessory (output)**
+**add (output)**
 
 ```sh
 {topic: "add", payload: {"name": "flex_lamp", "service": "Switch"}}
@@ -91,7 +89,7 @@ After the new accessory is added homebridge-websocket sends an acknowledge messa
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is added."}}
 ```
 
-**removeAccessory (output)**
+**remove (output)**
 
 ```sh
 {topic: "remove", payload: {"name": "flex_lamp"}}
@@ -103,10 +101,10 @@ After the accessory is removed homebridge sends an acknowledge message:
 {"topic":"response", "payload": {"ack": true, "message": "accessory 'flex_lamp' is removed."}}
 ```
 
-**getAccessories (output)**
+**get (output)**
 
 ```sh
-{topic: "getAccessories", payload: {}}
+{topic: "get", payload: {"name": "all"}}
 ```
 
 homebridge sends an accessories list:
@@ -118,6 +116,16 @@ homebridge sends an accessories list:
   "at_home":{"service":"OccupancySensor","characteristics":{"OccupancyDetected":1}}
   }
 }
+```
+
+```sh
+{topic: "get", payload: {"name": "temp_outdoor"}}
+```
+
+homebridge sends the accessory definition:
+
+```sh
+{ "temp_outdoor": { "service": "TemperatureSensor", "characteristics": { "CurrentTemperature": "blank" } } }
 ```
 
 **setValue (output)**

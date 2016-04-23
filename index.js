@@ -156,14 +156,25 @@ WebsocketPlatform.prototype.getAccessories = function(name) {
   var def = {};
   var service, characteristics;
   
-  for (var k in this.accessories) {
-    //this.log("getAccessories %s", JSON.stringify(this.accessories[k], null, 2));
-    service = this.accessories[k].service_name;
-    characteristics =  this.accessories[k].i_value;
-    def = {"service": service, "characteristics": characteristics};
-    accessories[k] = def;
+  switch (name) {
+    case "all":
+      for (var k in this.accessories) {
+        //this.log("getAccessories %s", JSON.stringify(this.accessories[k], null, 2));
+        service = this.accessories[k].service_name;
+        characteristics =  this.accessories[k].i_value;
+        def = {"service": service, "characteristics": characteristics};
+        accessories[k] = def;
+      }
+    break;
+    
+    default:
+      service = this.accessories[name].service_name;
+      characteristics =  this.accessories[name].i_value;
+      def = {"service": service, "characteristics": characteristics};
+      accessories[name] = def;
   }
-  //this.log("getAccessories %s", JSON.stringify(accessories, null, 2));
+
+  //this.log("getAccessory %s", JSON.stringify(accessories, null, 2));
   this.Websocket.sendAccessories(accessories);
 }
 
