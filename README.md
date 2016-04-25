@@ -60,9 +60,13 @@ The message is a JSON object with this structure:
 {topic: <function>, payload: {<data>}}
 ```
 
-`input`: the websocket-client receives a message from the homebridge-websocket.
+```sh
+input:  the websocket-client receives a message from the homebridge-websocket.
+```
 
-`output`: the websocket-client sends a message to the homebridge-websocket.
+```sh
+output: the websocket-client sends a message to the homebridge-websocket.
+```
 
 function | input / output
 -------- | ---------
@@ -196,5 +200,13 @@ To add an optional charachteristic define the characteristic-name with "default"
 
 Here's an example flow. It shows how to add an accessory (office_lamp) and how to set the value on/off.
 The messages sent from the homebridge-websocket are displayed on the debug tap.
+
+node-RED websocket settings:
+
+```sh
+Type:     Connect to
+URL:      ws://127.0.0.1:4050
+option:   Send/Receice intery message
+```
 
 ![node-RED](https://cloud.githubusercontent.com/assets/5056710/14761441/fee01054-0961-11e6-81e0-73f59603089c.jpeg)
