@@ -54,18 +54,10 @@ The websocket-client (e.g. Node-RED) has to connect to homebridge-websocket.
 
 ### Websocket API
 
-The message is a JSON object with this structure:
+The data is sent/received in a JSON format with this structure:
 
 ```sh
 {topic: <function>, payload: {<data>}}
-```
-
-```sh
-input:  the websocket-client receives a message from the homebridge-websocket.
-```
-
-```sh
-output: the websocket-client sends a message to the homebridge-websocket.
 ```
 
 function | input / output
@@ -77,7 +69,15 @@ setValue | output
 set | input
 get | input
 response | input
-callback | input
+callback | output
+
+
+```sh
+input:  the websocket-client receives a message from the homebridge-websocket.
+
+output: the websocket-client sends a message to the homebridge-websocket.
+``
+
 
 **Howto examples:**
 
