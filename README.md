@@ -71,9 +71,9 @@ get | input
 response | input
 callback | output
 
+
 ```sh
 input:  the websocket-client receives a message from the homebridge-websocket.
-
 output: the websocket-client sends a message to the homebridge-websocket.
 ```
 
