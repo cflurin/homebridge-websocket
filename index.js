@@ -77,6 +77,7 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
 
   var name = accessoryDef.name;
   var ack, message;
+  var isValid;
   
   if (!this.accessories[name]) {
     var uuid = UUIDGen.generate(name);
@@ -87,15 +88,20 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
     //this.log.debug("addAccessory UUID = %s", newAccessory.UUID);
     
     var i_accessory = new WebsocketAccessory(this.buildParams(accessoryDef));
-    i_accessory.addService(newAccessory);
-    i_accessory.configureAccessory(newAccessory);
-    
-    this.accessories[name] = i_accessory;
-    this.hap_accessories[name] = newAccessory;
-    this.api.registerPlatformAccessories(plugin_name, platform_name, [newAccessory]);
-    
-    ack = true;
-    message =  "accessory '" + name + "' is added.";
+    isValid = i_accessory.addService(newAccessory);
+    if (isValid) {
+      i_accessory.configureAccessory(newAccessory);
+      
+      this.accessories[name] = i_accessory;
+      this.hap_accessories[name] = newAccessory;
+      this.api.registerPlatformAccessories(plugin_name, platform_name, [newAccessory]);
+      
+      ack = true;
+      message =  "accessory '" + name + "' is added.";
+    } else {
+      ack = false;
+      message = "service '" + accessoryDef.service + "' undefined.";
+    }
   } else {
     ack = false;
     message = "name '" + name + "' is already used.";
