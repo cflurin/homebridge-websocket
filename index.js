@@ -83,7 +83,7 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
     var uuid = UUIDGen.generate(name);
     
     var newAccessory = new Accessory(name, uuid);
-    newsAccessory.reachable = true;
+    newAccessory.reachable = true;
     newAccessory.context.service_name = accessoryDef.service;
     
     //this.log.debug("addAccessory UUID = %s", newAccessory.UUID);
