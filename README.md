@@ -151,7 +151,7 @@ homebridge sends the accessory JSON object:
 {topic: "get", payload: {"name": "flex_lamp", "characteristic": "On"}}
 ```
 
-When homebridge-websocket sends a `get` topic it expects a callback with the value within 2 seconds.
+When homebridge-websocket sends a `get` topic it expects a callback with the value within 1 second.
 
 **callback (output)**
 
