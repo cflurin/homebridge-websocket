@@ -10,6 +10,7 @@ var cachedAccessories = 0;
 
 var platform_name = "websocket";
 var plugin_name = "homebridge-" + platform_name;
+var storagePath;
 
 module.exports = function(homebridge) {
   console.log("homebridge API version: " + homebridge.version);
@@ -20,6 +21,8 @@ module.exports = function(homebridge) {
   Characteristic = homebridge.hap.Characteristic;
   UUIDGen = homebridge.hap.uuid; // Universally Unique IDentifier
   
+  storagePath = homebridge.user.storagePath();
+  
   homebridge.registerPlatform(plugin_name, platform_name, WebsocketPlatform, true);
 }
 
@@ -29,11 +32,14 @@ function WebsocketPlatform(log, config, api) {
   this.accessories = {};
   this.hap_accessories = {};
   
-  if (typeof(config) !== "undefined") {
+  this.log.debug("storagePath = %s", storagePath);
+  this.log.debug("config = %s", JSON.stringify(config));
+  
+  if (typeof(config) !== "undefined" && config !== null) {
     this.port = config.port || {"port": 4050};
   } else {
-    this.port = 4050;
-    this.log.error("platform not found in config.json.");
+    this.log.error("config undefined or null!");
+    process.exit(1);
   }
      
   var plugin_version = Utils.readPluginVersion();
