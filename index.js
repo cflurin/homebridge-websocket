@@ -39,6 +39,7 @@ function WebsocketPlatform(log, config, api) {
     this.port = config.port || {"port": 4050};
   } else {
     this.log.error("config undefined or null!");
+    this.log("storagePath = %s", storagePath);
     process.exit(1);
   }
      

@@ -22,22 +22,9 @@ Add the websocket-platform in config.json in your home directory inside `.homebr
 
 ```sh
 {
-  "bridge": {
-    "name": "Homebridge",
-    "username": "CC:22:3D:E3:CE:30",
-    "port": 51826,
-    "pin": "031-45-154"
-  },
-  
-  "platforms": [
-    {
-      "platform" : "websocket",
-      "name" : "websocket",
-      "port": 4050
-    }
-  ],           
-
-  "accessories": []
+  "platform" : "websocket",
+  "name" : "websocket",
+  "port": 4050
 }
 ```
 
