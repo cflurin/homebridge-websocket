@@ -196,5 +196,5 @@ option:   Send/Receice intery message
 
 ![node-RED](https://cloud.githubusercontent.com/assets/5056710/14761441/fee01054-0961-11e6-81e0-73f59603089c.jpeg)
 
-Take a look at [collection/homebridge-webseocket](https://github.com/cflurin/collection/tree/master/homebridge-websocket)
+Take a look at [collection/homebridge-websocket](https://github.com/cflurin/collection/tree/master/homebridge-websocket)
 for the `example-flow.json` which you can import into node-RED.
