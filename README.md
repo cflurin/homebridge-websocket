@@ -1,5 +1,8 @@
 # homebridge-websocket
-[![npm version](https://badge.fury.io/js/homebridge-websocket.svg)](https://badge.fury.io/js/homebridge-websocket)
+
+[![NPM version][npm-image]][npm-url]
+[npm-image]: http://img.shields.io/npm/v/homebridge-websocket.svg
+[npm-url]: https://npmjs.org/package/homebridge-websocket
 
 Homebridge-websocket is a Plugin for Homebridge. The Websocket-API supports the main homebridge functions. This allows you to add and control accessories from a "Bridge" or "Gateway" with a Websocket API. [Node-RED](http://nodered.org/) is the perfect platform to use with homebridge-websocket.
 
