@@ -1,6 +1,7 @@
 # homebridge-websocket
 
 [![NPM version][npm-image]][npm-url]
+
 [npm-image]: http://img.shields.io/npm/v/homebridge-websocket.svg
 [npm-url]: https://npmjs.org/package/homebridge-websocket
 
