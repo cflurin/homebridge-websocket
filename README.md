@@ -50,7 +50,7 @@ The websocket-client (e.g. Node-RED) has to connect to homebridge-websocket.
 The data is sent/received in a JSON format with this structure:
 
 ```sh
-{topic: <function>, payload: {<data>}}
+{"topic": <function>, "payload": {<data>}}
 ```
 
 function | input / output
@@ -75,7 +75,7 @@ output: the websocket-client sends a message to the homebridge-websocket.
 **add (output)**
 
 ```sh
-{topic: "add", payload: {"name": "flex_lamp", "service": "Switch"}}
+{"topic": "add", "payload": {"name": "flex_lamp", "service": "Switch"}}
 ```
 
 After the new accessory is added homebridge-websocket sends an acknowledge message:
@@ -87,7 +87,7 @@ After the new accessory is added homebridge-websocket sends an acknowledge messa
 **remove (output)**
 
 ```sh
-{topic: "remove", payload: {"name": "flex_lamp"}}
+{"topic": "remove", "payload": {"name": "flex_lamp"}}
 ```
 
 After the accessory is removed homebridge sends an acknowledge message:
@@ -99,7 +99,7 @@ After the accessory is removed homebridge sends an acknowledge message:
 **get (output)**
 
 ```sh
-{topic: "get", payload: {"name": "all"}}
+{"topic": "get", "payload": {"name": "all"}}
 ```
 
 homebridge sends an accessories list:
@@ -114,13 +114,13 @@ homebridge sends an accessories list:
 ```
 
 ```sh
-{topic: "get", payload: {"name": "temp_outdoor"}}
+{"topic": "get", "payload": {"name": "temp_outdoor"}}
 ```
 
 homebridge sends the accessory JSON object:
 
 ```sh
-{"topic": "accessories", payload: {
+{"topic": "accessories", "payload": {
   "temp_outdoor": {"service": "TemperatureSensor", "characteristics": {"CurrentTemperature": "13.4"}}
   }
 }
@@ -129,19 +129,19 @@ homebridge sends the accessory JSON object:
 **setValue (output)**
 
 ```sh
-{topic: "setValue", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
+{"topic": "setValue", "payload": {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
 **set (input)**
 
 ```sh
-{topic: "set", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
+{"topic": "set", "payload": {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
 **get (input)**
 
 ```sh
-{topic: "get", payload: {"name": "flex_lamp", "characteristic": "On"}}
+{"topic": "get", "payload": {"name": "flex_lamp", "characteristic": "On"}}
 ```
 
 When homebridge-websocket sends a `get` topic it expects a callback with the value within 1 second.
@@ -149,14 +149,14 @@ When homebridge-websocket sends a `get` topic it expects a callback with the val
 **callback (output)**
 
 ```sh
-{topic: "callback", payload: {"name": "flex_lamp", "characteristic": "On", "value": true}}
+{"topic": "callback", "payload": {"name": "flex_lamp", "characteristic": "On", "value": true}}
 ```
 
 The required characteristics are added with the default properties. If you need to change the default, define the characteristic-name with the properties. e.g.:
 
 ```sh
-{topic: "add",
- payload:
+{"topic": "add",
+ "payload":
   {
     "name": "temp_living",
     "service": "TemperatureSensor",
@@ -168,12 +168,12 @@ The required characteristics are added with the default properties. If you need 
 To add an optional charachteristic define the characteristic-name with "default" or with the properties. e.g.:
 
 ```sh
-{topic: "add", payload: {"name": "living_lamp", "service": "Lightbulb", "Brightness": "default"}}
+{"topic": "add", "payload": {"name": "living_lamp", "service": "Lightbulb", "Brightness": "default"}}
 ```
 
 ```sh
-{topic: "add",
-  payload:
+{"topic": "add",
+  "payload":
     {
       "name": "bathroom_blind",
       "service": "WindowCovering",

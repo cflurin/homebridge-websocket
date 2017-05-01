@@ -1,6 +1,6 @@
 {
   "name": "homebridge-websocket",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Websocket Plugin for Homebridge",
   "license": "ISC",
   "author": {
