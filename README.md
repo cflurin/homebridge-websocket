@@ -9,6 +9,9 @@ Homebridge-websocket is a Plugin for Homebridge. The Websocket-API supports the 
 
 Note-RED is a visual tool for wiring together hardware devices, APIs and online services.
 
+Please note that You can only get the accessories which are added via this homebridge-websocket plugin.
+The same applies to the homebridge-mqtt plugin. See comments [here](https://github.com/cflurin/homebridge-mqtt/issues/8)
+
 ### Installation
 
 If you are new to Homebridge, please first read the Homebridge [documentation](https://www.npmjs.com/package/homebridge).
