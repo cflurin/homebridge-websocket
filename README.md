@@ -14,13 +14,8 @@ The same applies to the homebridge-mqtt plugin. See comments [here](https://gith
 
 ### Installation
 
-If you are new to Homebridge, please first read the Homebridge [documentation](https://www.npmjs.com/package/homebridge).
-If you are running on a Raspberry, you will find a tutorial in the [homebridge-punt Wiki](https://github.com/cflurin/homebridge-punt/wiki/Running-Homebridge-on-a-Raspberry-Pi).
+If you are new to Homebridge, please first read the [documentation](https://github.com/nfarina/homebridge) to install Homebridge.
 
-Install homebridge:
-```sh
-sudo npm install -g homebridge
-```
 Install homebridge-websocket:
 ```sh
 sudo npm install -g homebridge-websocket
