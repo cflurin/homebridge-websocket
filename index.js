@@ -72,7 +72,7 @@ function WebsocketPlatform(log, config, api) {
      
      this.Websocket.startServer();
              
-      this.log.debug("Number of chaced Accessories: %s", cachedAccessories);
+      this.log.debug("Number of cached Accessories: %s", cachedAccessories);
       this.log("Number of Accessories: %s", Object.keys(this.accessories).length);
 
     }.bind(this));
