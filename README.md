@@ -76,6 +76,11 @@ output: the websocket-client sends a message to the homebridge-websocket.
 {"topic": "add", "payload": {"name": "flex_lamp", "service": "Switch"}}
 ```
 
+or with the additional accessory informations
+```sh
+{"topic": "add", "payload": {"name": "flex_lamp", "service": "Switch", "manufacturer": "lamp_manu", "model": "flex_007", "serialnumber": "4711", "firmwarerevision": "1.0.0"}}
+```
+
 After the new accessory is added homebridge-websocket sends an acknowledge message:
 
 ```sh
