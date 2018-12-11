@@ -85,6 +85,12 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
   var name = accessoryDef.name;
   var ack, message;
   var isValid;
+  var service_type = accessoryDef.service;
+  var manufacturer = accessoryDef.manufacturer;
+  var model = accessoryDef.model;
+  var serialnumber = accessoryDef.serialnumber;
+  var firmwarerevision = accessoryDef.firmwarerevision;
+  var service_name;
   
   if (!this.accessories[name]) {
     var uuid = UUIDGen.generate(name);
@@ -116,8 +122,64 @@ WebsocketPlatform.prototype.addAccessory = function(accessoryDef) {
   }
   this.log("addAccessory %s", message);
   this.Websocket.sendAck(ack, message);
+  if (ack) {
+    var now = new Date().toISOString().slice(0,16);
+    var plugin_version = Utils.readPluginVersion();
+    var plugin_v = "v" + plugin_version;
+    if (typeof manufacturer === "undefined") {
+      manufacturer = plugin_name;
+    }
+    if (typeof model === "undefined") {
+      model = plugin_v;
+    }
+    if (typeof serialnumber === "undefined") {
+      serialnumber = now;
+    }
+    if (typeof firmwarerevision === "undefined") {
+      firmwarerevision = plugin_version;
+    }
+    this.setAccessoryInformation({"name":name,"manufacturer":manufacturer,"model":model,"serialnumber":serialnumber,"firmwarerevision":firmwarerevision}, false);
+  }
 }
 
+WebsocketPlatform.prototype.setAccessoryInformation = function(accessory) {
+
+  this.log.debug("WebsocketPlatform.setAccessoryInformation %s", JSON.stringify(accessory));
+  var message;
+  var ack;
+  var name = accessory.name;
+
+  if (typeof this.hap_accessories[name] === "undefined") {
+    ack = false; message = "accessory '" + name + "' undefined.";
+  } else {
+    var service = this.hap_accessories[name].getService(Service.AccessoryInformation);
+
+    if (typeof accessory.manufacturer !== "undefined") {
+      service.setCharacteristic(Characteristic.Manufacturer, accessory.manufacturer);
+      ack = true;
+    }
+    if (typeof accessory.model !== "undefined") {
+      service.setCharacteristic(Characteristic.Model, accessory.model);
+      ack = true;
+    }
+    if (typeof accessory.serialnumber !== "undefined") {
+      service.setCharacteristic(Characteristic.SerialNumber, accessory.serialnumber);
+      ack = true;
+    }
+    if (typeof accessory.firmwarerevision !== "undefined") {
+      service.setCharacteristic(Characteristic.FirmwareRevision, accessory.firmwarerevision);
+      ack = true;
+    }
+
+    if (ack) {
+      message = "accessory '" + name + "', accessoryinformation is set.";
+    } else {
+      message = "accessory '" + name + "', accessoryinforrmation properties undefined.";
+    }
+  }
+  this.Websocket.sendAck(ack, message);
+} 
+  
 WebsocketPlatform.prototype.configureAccessory = function(accessory) {
 
   //this.log.debug("configureAccessory %s", JSON.stringify(accessory.services, null, 2));
